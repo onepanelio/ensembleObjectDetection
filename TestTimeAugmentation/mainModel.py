@@ -5,43 +5,63 @@ import shutil
 import argparse
 import ensembleOptions
 from imutils import paths
+import shutil
 
-def models(listaModels,pathImg,option):
-    # 1. First we create the folder where we will store the resulting images and create as many folders as we have models
-    os.mkdir(pathImg+'/../salida')
-    for model in listaModels:
-        os.mkdir(pathImg+'/../salida/'+os.path.splitext(os.path.basename(model.pathPesos))[0])
+def models(listaModels,pathImg,option, combine=False):
+    if combine=='False':
+        # 1. First we create the folder where we will store the resulting images and create as many folders as we have models
+        if not os.path.exists(pathImg+'/../salida'):
+            os.mkdir(pathImg+'/../salida')
+        for model in listaModels:
+            os.mkdir(pathImg+'/../salida/'+os.path.splitext(os.path.basename(model.pathPesos))[0])
 
-    # 2. We create a list with the folders we have created
-    listDirOut = []
-    for filename in os.listdir(pathImg+'/../salida'):
-        if os.path.isdir(pathImg+'/../salida/'+filename) == True:
-            listDirOut.append(pathImg+'/../salida/'+filename)
-
-
-    # 3. we copy the images from the initial folder to each of the created folders
-    for dire in listDirOut:
-        for fich in os.listdir(pathImg):
-            shutil.copy(pathImg+'/'+fich, dire+'/')
+        # 2. We create a list with the folders we have created
+        listDirOut = []
+        for filename in os.listdir(pathImg+'/../salida'):
+            if os.path.isdir(pathImg+'/../salida/'+filename) == True:
+                listDirOut.append(pathImg+'/../salida/'+filename)
 
 
-    # 4. Generate xml
-    for model in listaModels:
-        #If the model matches the name of the folder, we will predict it is only folder
-        for dir in os.listdir(pathImg+'/../salida/'):
-            if (os.path.splitext(os.path.basename(pathImg+'/../salida/'+model.pathPesos))[0]) == dir:
-                #Then we list the files in that folder
-                images = os.listdir(pathImg+'/../salida/'+dir)
-                model.predict(pathImg+'/../salida/'+dir, pathImg+'/../salida/'+dir)
+        # 3. we copy the images from the initial folder to each of the created folders
+        for dire in listDirOut:
+            for fich in os.listdir(pathImg):
+                shutil.copy(pathImg+'/'+fich, dire+'/')
 
 
+        # 4. Generate xml
+        for model in listaModels:
+            #If the model matches the name of the folder, we will predict it is only folder
+            for dir in os.listdir(pathImg+'/../salida/'):
+                if (os.path.splitext(os.path.basename(pathImg+'/../salida/'+model.pathPesos))[0]) == dir:
+                    #Then we list the files in that folder
+                    images = os.listdir(pathImg+'/../salida/'+dir)
+                    model.predict(pathImg+'/../salida/'+dir,pathImg+'/../salida/'+dir, 0.5)
+        print("list salid", os.listdir(pathImg+'/../salida'))
+        list_dir = os.listdir(pathImg+'/../salida')
+        dest = "/mnt/output"
+#         shutil.move(pathImg+'/../salida/', '/mnt/output')
+        for sub_dir in list_dir:
+            print("sub dir:", sub_dir)
+            os.makedirs(os.path.join("/mnt/output", sub_dir))
+            for file in os.listdir(os.path.join(pathImg+'/../salida',sub_dir)):
+                print("file:", file)
+                dir_to_move = os.path.join(pathImg+'/../salida', sub_dir, file)
+                shutil.move(dir_to_move, os.path.join(dest, sub_dir, file))
 
-    # 5. We perform the ensemble method
-    for dirOut in os.listdir(pathImg+'/../salida/'):
-        for file in list(paths.list_files(pathImg+'/../salida/'+dirOut, validExts=(".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"))):
-            os.remove(file)
+    else:
+        # 5. We perform the ensemble method
+        for dirOut in os.listdir("/mnt/data/datasets"):
+            for file in list(paths.list_files('/mnt/data/datasets/'+dirOut, validExts=(".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"))):
+                os.remove(file)
 
-    ensembleOptions.ensembleOptions(pathImg+'/../salida/', option)
+        ensembleOptions.ensembleOptions('/mnt/data/datasets', option)
+        print('print datasets', os.listdir('/mnt/data/datasets'))
+        print("print output", os.listdir('/mnt/data/datasets/output'))
+        os.makedirs("/mnt/output/output")
+        for sub_dir in os.listdir("/mnt/data/datasets/output"):
+            print("sub dir2:", sub_dir)
+            dir_to_ = os.path.join('/mnt/data/datasets/output', sub_dir)
+            shutil.move(dir_to_, os.path.join('/mnt/output/output', sub_dir))
 
 
 if __name__== "__main__":
