@@ -57,10 +57,9 @@ def models(listaModels,pathImg,option, combine=False):
 
         ensembleOptions.ensembleOptions(pathImg, option)
         generate_xml(pathImg)
-#         print('print datasets', os.listdir('/mnt/data/datasets'))
-#         print("print output", os.listdir('/mnt/data/datasets/output'))
-        if not os.path.exists(pathImg+"output/"):
-            os.makedirs(pathImg+"output/")
+        print('print datasets', os.listdir('/mnt/data/datasets'))
+        print("print output", os.listdir('/mnt/data/datasets/output'))
+        os.makedirs("/mnt/output/output/")
         for sub_dir in os.listdir(pathImg+"output/"):
             print("sub dir2:", sub_dir)
             dir_to_ = os.path.join(pathImg+"output", sub_dir)
