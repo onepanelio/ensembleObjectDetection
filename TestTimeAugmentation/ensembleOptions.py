@@ -28,6 +28,7 @@ def ensembleOptions(datasetPath, option):
         
         #we look for the width, height and depth of the image
         fichIguales = glob.glob(datasetPath + '/*/' + nombre+'.xml')
+        print("fichIguales ",fichIguales) 
         file = open(datasetPath+"/output/"+nombre+".xml", "w")
         numFich = len(fichIguales)
         doc = etree.parse(fichIguales[0])
