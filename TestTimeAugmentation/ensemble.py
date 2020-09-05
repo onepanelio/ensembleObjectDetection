@@ -38,6 +38,7 @@ def listarCuadrados(pathCarpeta):
                     boxes.append([name, xmin, ymin, xmax, ymax, prob])
                     j = j+1
         boxesAllXmls.append((nombreFichero,boxes))
+    print(boxesAllXmls)
     return boxesAllXmls
 
 
