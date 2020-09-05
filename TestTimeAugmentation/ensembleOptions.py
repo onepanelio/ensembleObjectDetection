@@ -37,6 +37,7 @@ def ensembleOptions(datasetPath, option):
         hI = filename.find("size").find("height").text
         d = filename.find("size").find("depth").text
         box = ensemble.uneBoundingBoxes(lis)
+        print("box",box)
         #now we pass the non-maximunSupression to each list within the list obtained
         for rectangles in box:
             lista = []
