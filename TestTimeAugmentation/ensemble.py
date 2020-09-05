@@ -9,6 +9,7 @@ def listarCuadrados(pathCarpeta):
     boxes = []  # list that will contain all the squares of each xml
     prob = 0.5
     listDirectorios = os.scandir(path=pathCarpeta)#we list the files in the last folder
+    print("ensemble listDirs", listDirectorios)
     for files in listDirectorios:
         if files.is_dir():
             break
@@ -21,6 +22,7 @@ def listarCuadrados(pathCarpeta):
             boxes=[]
             fichIguales = glob.glob(pathCarpeta+'/*/'+fichero)#
             for f in fichIguales:
+                print("file parse ",f) 
                 j = 0  # declaration of variables
 
                 doc = etree.parse(f)
