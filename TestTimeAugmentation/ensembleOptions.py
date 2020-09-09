@@ -41,7 +41,7 @@ def ensembleOptions(datasetPath, option):
         #now we pass the non-maximunSupression to each list within the list obtained
         for rectangles in box:
             lista = []
-    
+            print("option: ", option)
             for rc in rectangles:
                 lista.append(rc)
             pick = []
