@@ -37,15 +37,12 @@ def models(listaModels,pathImg,option, combine=False):
                     #Then we list the files in that folder
                     images = os.listdir(pathImg+'/../salida/'+dir)
                     model.predict(pathImg+'/../salida/'+dir,pathImg+'/../salida/'+dir, 0.5)
-        print("list salid", os.listdir(pathImg+'/../salida'))
         list_dir = os.listdir(pathImg+'/../salida')
         dest = "/mnt/output"
 #         shutil.move(pathImg+'/../salida/', '/mnt/output')
         for sub_dir in list_dir:
-            print("sub dir:", sub_dir)
             os.makedirs(os.path.join("/mnt/output", sub_dir))
             for file in os.listdir(os.path.join(pathImg+'/../salida',sub_dir)):
-                print("file:", file)
                 dir_to_move = os.path.join(pathImg+'/../salida', sub_dir, file)
                 shutil.move(dir_to_move, os.path.join(dest, sub_dir, file))
 
@@ -57,11 +54,8 @@ def models(listaModels,pathImg,option, combine=False):
 
         ensembleOptions.ensembleOptions(pathImg, option)
         generate_xml(pathImg)
-        print('print datasets', os.listdir('/mnt/data/datasets'))
-        print("print output", os.listdir('/mnt/data/datasets/output'))
         os.makedirs("/mnt/output/output/")
         for sub_dir in os.listdir(pathImg+"output/"):
-            print("sub dir2:", sub_dir)
             dir_to_ = os.path.join(pathImg+"output", sub_dir)
             shutil.move(dir_to_, os.path.join("/mnt/output", 'output', sub_dir))
 
