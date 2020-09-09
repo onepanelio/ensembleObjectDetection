@@ -28,7 +28,6 @@ def ensembleOptions(datasetPath, option):
         
         #we look for the width, height and depth of the image
         fichIguales = glob.glob(datasetPath + '/*/' + nombre+'.xml')
-        print("fichIguales ",fichIguales) 
         file = open(datasetPath+"/output/"+nombre+".xml", "w")
         numFich = len(fichIguales)
         doc = etree.parse(fichIguales[0])
@@ -37,11 +36,9 @@ def ensembleOptions(datasetPath, option):
         hI = filename.find("size").find("height").text
         d = filename.find("size").find("depth").text
         box = ensemble.uneBoundingBoxes(lis)
-        print("box",box)
         #now we pass the non-maximunSupression to each list within the list obtained
         for rectangles in box:
             lista = []
-            print("option: ", option)
             for rc in rectangles:
                 lista.append(rc)
             pick = []
@@ -63,6 +60,5 @@ def ensembleOptions(datasetPath, option):
     
             if len(pick)!=0:
                 resul.append(list(pick[0]))
-            print("Result: ", resul)
         file.write(generateXML.generateXML(nombre, "", wI, hI, d, resul))
         file.close()
