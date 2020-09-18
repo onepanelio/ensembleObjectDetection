@@ -75,6 +75,17 @@ class MaskRCNNPred(IPredictor):
         predict_batch_rcnn.mainDataset(imgPath, output, conf, self.pathPesos, self.classes)
 
 
+class TFODPred(IPredictor):
+    
+    def __init__(self,weightPath,classes):
+        IPredictor.__init__(self, weightPath)
+        self.classes=classes
+
+    def predict(self, imgPath, output, conf):
+        import predict_batch_tfod
+        predict_batch_tfod.mainDataset(imgPath, output, conf, self.pathPesos, self.classes)
+
+
 class Efficient(IPredictor):
 
     def __init__(self, weightPath, classes):

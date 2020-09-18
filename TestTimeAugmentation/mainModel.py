@@ -7,6 +7,8 @@ import ensembleOptions
 from imutils import paths
 from generate_xml_cvat import generate_xml
 import shutil
+from visualize import visualize_images
+
 
 def models(listaModels,pathImg,option, combine=False):
     if combine=='False':
@@ -53,6 +55,7 @@ def models(listaModels,pathImg,option, combine=False):
                 os.remove(file)
 
         ensembleOptions.ensembleOptions(pathImg, option)
+        visualize_images(pathImg)
         generate_xml(pathImg)
         os.makedirs("/mnt/output/output/")
         for sub_dir in os.listdir(pathImg+"output/"):

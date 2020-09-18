@@ -31,10 +31,12 @@ def main(args):
     if 'faster_resnet' in models_list:
         fasterResnet = testTimeAugmentation.MXnetFasterRCNNPred('/mnt/src/faster_rcnn_resnet50_v1b_voc-447328d8.params', '/mnt/src/classesMXnet.txt')
         listModels.append(fasterResnet)
+    if 'tfod' in models_list:
+        tfodModel = testTimeAugmentation.TFODPred('frozen_inference_graph.pb', 'classes.csv')
+        listModels.append(tfodModel)
         
 #     listaModels = [retinaResnet50, maskRcnn]
     models(listModels,args.images_path,args.option, args.combine)
-    print(os.listdir('/mnt/src/'))
     
 
 if __name__ == "__main__":
