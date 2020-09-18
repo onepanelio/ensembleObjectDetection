@@ -12,7 +12,8 @@ def visualize_images(pathImg):
     _images.extend(glob.glob("/mnt/data/dataorig/images/*.png"))
     for image in data['images']:
         tree = ET.parse(os.path.join(pathImg+"output", os.path.basename(image['file_name']))[:-4]+'.xml')
-        root = tree.getroot()
+        root = tree.getroot()    colors = {'zero':(0,255,0), 'light':(0,0,255),'medium':(255,0,0),'high':(120,120,0),'non_recoverable':(0,120,120),'cut':(0,0,0)}
+
         for obj in root.findall('object'):
             draw_boxes(os.path.basename(image['file_name']), obj.find('name').text,float(list(obj.iter('xmin'))[0].text),float(list(obj.iter('ymin'))[0].text),float(list(obj.iter('xmax'))[0].text),float(list(obj.iter('ymax'))[0].text))
 
@@ -21,4 +22,5 @@ def draw_boxes(img_path,label, xmin, ymin, xmax, ymax):
     frame = cv2.imread("/mnt/data/dataorig/images"+img_path)
     img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     cv2.rectangle(img, (xmin,ymin), (xmax,ymax), (255,0,0) , 5)
+    cv2.imwrite(os.path.join("/mnt/output", img_path), img)
   
