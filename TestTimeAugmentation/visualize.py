@@ -18,6 +18,7 @@ def visualize_images(pathImg):
         boxes = []
         for obj in root.findall('object'):
             boxes.append([obj.find('name').text,float(list(obj.iter('xmin'))[0].text),float(list(obj.iter('ymin'))[0].text),float(list(obj.iter('xmax'))[0].text),float(list(obj.iter('ymax'))[0].text)])
+        print("image", image, "boxes: ", len(boxes))
         draw_boxes(os.path.basename(image['file_name']), boxes)
 
 
@@ -27,4 +28,5 @@ def draw_boxes(img_path,boxes):
 #     img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     for box in boxes:
         cv2.rectangle(frame, (int(box[1]),int(box[2])), (int(box[3]),int(box[4])), (255,0,0) , 5)
-    cv2.imwrite(os.path.join("/mnt/output", img_path), frame)
+    print("storing output :", os.path.join("/mnt/output/", img_path))
+    cv2.imwrite(os.path.join("/mnt/output/", img_path), frame)
