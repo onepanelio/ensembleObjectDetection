@@ -29,4 +29,6 @@ def draw_boxes(img_path,boxes):
     for box in boxes:
         cv2.rectangle(frame, (int(box[1]),int(box[2])), (int(box[3]),int(box[4])), (255,0,0) , 5)
     print("storing output :", os.path.join("/mnt/output/", img_path))
+    print(os.listdir("/mnt/output/"))
     cv2.imwrite(os.path.join("/mnt/output/", img_path), frame)
+    print(os.listdir("/mnt/output/"))
