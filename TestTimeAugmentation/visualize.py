@@ -9,6 +9,8 @@ def visualize_images(pathImg):
     """
     path where images and corresponsing xml files are.
     """
+    if not os.path.exists("/mnt/output/"):
+        os.makedirs("/mnt/output/")
     labels,data = get_labels_from_json("/mnt/data/dataorig/annotations/instances_default.json")
     _images = glob.glob("/mnt/data/dataorig/images/*.jpg")
     _images.extend(glob.glob("/mnt/data/dataorig/images/*.png"))
