@@ -37,7 +37,7 @@ def main(args):
         
 #     listaModels = [retinaResnet50, maskRcnn]
     models(listModels,args.images_path,args.option, args.combine)
-    
+    print(os.listdir("/mnt/output/"))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
