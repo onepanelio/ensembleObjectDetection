@@ -11,6 +11,7 @@ import argparse
 import cv2
 import os
 from PIL import Image
+import tensorflow as tf
 
 
 def prettify(elem):
@@ -140,7 +141,7 @@ def mainDataset(dataset,output, confidence,weights,fichClass):
     filename = imagePath.split(os.path.sep)[-1]
     #outputPath = os.path.sep.join([args["output"], filename])
     file = open(imagePath[0:imagePath.rfind(".")]+".xml", "w")
-    file.write(generateXML(imagePath[0:imagePath.rfind(".")],imagePath,weight, height, 3, result))
+    file.write(generateXML(imagePath[0:imagePath.rfind(".")],imagePath,weights, height, 3, result))
     file.close()
 
 	
