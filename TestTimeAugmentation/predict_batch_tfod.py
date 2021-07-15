@@ -114,10 +114,10 @@ def mainDataset(dataset,output, confidence,weights,fichClass):
 	    #	len(imagePaths)))
 
 	    # load the input image (in BGR order), clone it, and preprocess it
-	image = Image.open(imagePath)
-        width, height = image.size
-        if width > 1920 or height > 1080:
-            image = image.resize((width // 2, height // 2), Image.ANTIALIAS)
+	    image = Image.open(imagePath)
+    width, height = image.size
+    if width > 1920 or height > 1080:
+        image = image.resize((width // 2, height // 2), Image.ANTIALIAS)
         image_np = load_image_into_numpy(image)
         image_np_expanded = np.expand_dims(image_np, axis=0)
 
